@@ -1,12 +1,12 @@
 module.exports = {
   siteMetadata: {
-    title: 'Gatsby Default Starter',
+    title: 'Drivers License Barcode Generator',
   },
   plugins: [
     {
       resolve: `gatsby-plugin-sass`,
       options: {
-        includePaths: ["node_modules/bootstrap/scss"],
+        includePaths: [],
       },
     },
     'gatsby-plugin-react-helmet',
