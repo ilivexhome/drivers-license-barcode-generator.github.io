@@ -1,4 +1,5 @@
 module.exports = {
+  pathPrefix: "/drivers-license-barcode-generator",
   siteMetadata: {
     title: 'Drivers License Barcode Generator',
   },
