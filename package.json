@@ -21,6 +21,7 @@
   ],
   "license": "MIT",
   "scripts": {
+    "lint": "./node_modules/.bin/eslint .",
     "build": "gatsby build",
     "develop": "gatsby develop",
     "deploy": "gatsby build --prefix-paths && gh-pages -d public",
@@ -30,6 +31,12 @@
   },
   "devDependencies": {
     "bootstrap": "^4.1.3",
+    "eslint": "^5.9.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0",
     "gatsby-plugin-sass": "^2.0.4",
     "gh-pages": "^2.0.1",
     "node-sass": "^4.10.0",
