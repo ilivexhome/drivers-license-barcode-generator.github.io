@@ -2,13 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import NameInput from './name-input'
 
-const FirstNameInput = ({ onChange }) => <NameInput
-  label={'First Name'}
+const MiddleNameInput = ({ onChange }) => <NameInput
+  label={'Middle Name'}
   onChange={onChange}
 />
 
-FirstNameInput.propTypes = {
+MiddleNameInput.propTypes = {
   onChange: PropTypes.func
 }
 
-export default FirstNameInput
+export default MiddleNameInput

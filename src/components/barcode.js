@@ -38,13 +38,12 @@ export default class Barcode extends Component {
     var y = 0
     // for each row
 
-    console.log(barcode);
+    console.log(barcode)
 
     for (var r = 0; r < barcode['num_rows']; ++r) {
       var x = 0
       // for each column
       for (var c = 0; c < barcode['num_cols']; ++c) {
-
         if (barcode['bcode'][r][c] == 1) {
           ctx.fillRect(x, y, bw, bh)
         }
@@ -56,7 +55,7 @@ export default class Barcode extends Component {
 
   render () {
     return (
-      <canvas style={{background:'white'}} ref={this._ref} ></canvas>
+      <canvas style={{ background: 'white' }} ref={this._ref} ></canvas>
     )
   }
 }

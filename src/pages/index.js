@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import { Link } from 'gatsby'
-
 import Layout from '../components/layout'
 import FirstNameInput from '../components/first-name-input'
+import MiddleNameInput from '../components/middle-name-input'
 import LastNameInput from '../components/last-name-input'
 
 export default class IndexPage extends Component {
@@ -11,6 +10,7 @@ export default class IndexPage extends Component {
       <Layout>
         <form>
           <FirstNameInput onChange={(value) => console.log(value)} />
+          <MiddleNameInput onChange={(value) => console.log(value)} />
           <LastNameInput onChange={(value) => console.log(value)} />
 
           <input type="submit" value="Generate Barcode" className="btn btn-primary" />
