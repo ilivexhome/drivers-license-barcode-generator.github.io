@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
 import Header from './header'
@@ -8,43 +8,39 @@ import { StaticQuery, graphql } from 'gatsby'
 
 import './layout.scss'
 
-const Layout = ({ children }) => (
-  <StaticQuery
-    query={graphql`
-      query SiteTitleQuery {
-        site {
-          siteMetadata {
-            title
-          }
-        }
-      }
-    `}
-    render={data => (
-      <>
-        <Helmet
-          title={data.site.siteMetadata.title}
-          meta={[
-            { name: 'description', content: 'Sample' },
-            { name: 'keywords', content: 'sample, something' }
-          ]}
-        >
-          <html lang="en" />
-        </Helmet>
-        <Header siteTitle={data.site.siteMetadata.title} />
+export default class Layout extends Component {
+  static propTypes = {
+    children: PropTypes.node.isRequired
+  }
 
+  constructor (props) {
+    super(props);
+
+    this.state = {
+      data: '',
+    }
+  }
+
+  _renderBarcode() {
+    if (!this.state.data) {
+      return null;
+    }
+
+    return (
+      <Barcode data={this.state.data}/>
+    );
+  }
+
+  render () {
+    return (
+      <>
         <div className="container">
 
-        <Barcode />
-        {children}
+        {this._renderBarcode()}
+        {this.props.children}
 
         </div>
       </>
-    )}
-  />
-)
-
-Layout.propTypes = {
-  children: PropTypes.node.isRequired
+    );
+  }
 }
-
-export default Layout
