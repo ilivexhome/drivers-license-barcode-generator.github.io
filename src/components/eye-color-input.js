@@ -3,14 +3,32 @@ import PropTypes from 'prop-types';
 
 export default class EyeColorInput extends Component {
   static propTypes = {
-    options: PropTypes.arrayOf(PropTypes.string).isRequired,
+    options: PropTypes.arrayOf(PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      hex: PropTypes.string.isRequired,
+    })).isRequired,
     selected: PropTypes.string,
+    onSelect: PropTypes.func,
+  }
+
+  _handleClick = (label) => {
+    const { onSelect } = this.props;
+
+    if (onSelect) {
+      onSelect(label);
+    }
   }
 
   _renderEyeColorOptions() {
     return this.props.options.map((option, index) => {
+      let className=`eye-color-${option.slug}`
+
+      if (option.label === this.props.selected) {
+        className += ' selected';
+      }
+
       return (
-        <div key={index}>{option}</div>
+        <div onClick={this._handleClick.bind(null, option.label)} className={className} key={index}>{option.label}</div>
       );
     });
   }
