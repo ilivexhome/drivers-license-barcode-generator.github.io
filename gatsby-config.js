@@ -5,6 +5,12 @@ module.exports = {
   },
   plugins: [
     {
+      resolve: 'gatsby-plugin-favicon',
+      options: {
+        logo: './src/images/favicon.png'
+      }
+    },
+    {
       resolve: `gatsby-plugin-sass`,
       options: {
         includePaths: []
