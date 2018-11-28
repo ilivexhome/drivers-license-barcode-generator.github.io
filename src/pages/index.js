@@ -209,7 +209,46 @@ export default class IndexPage extends Component {
     );
   }
 
-  render () {
+  _renderAddressCityInput() {
+    return null; // TODO
+  }
+
+  _renderAddressJurisdictionCodeInput() {
+    return null; // TODO
+  }
+
+  _renderAddressPostalCodeInput() {
+    return (
+      <TextInput
+        label={'Postal Code'}
+      />
+    ); // TODO
+  }
+
+  _renderCountryIdentificationInput() {
+    return null; // TODO
+  }
+
+  _renderAddressInputs() {
+    return (
+      <>
+        {this._renderAddressStreet1Input()}
+        {this._renderAddressCityInput()}
+        {this._renderAddressJurisdictionCodeInput()}
+        {this._renderAddressPostalCodeInput()}
+      </>
+    );
+  }
+
+  _renderCustomerIDNumberInput() {
+    return null; // TODO
+  }
+
+  _renderDocumentIssueDateInput() {
+    return null; // TODO
+  }
+
+  render() {
     return (
       <Layout>
         {this._renderDebug()}
@@ -220,7 +259,13 @@ export default class IndexPage extends Component {
           {this._renderFirstNameInput()}
           {this._renderMiddleNameInput()}
           {this._renderPhysicalDescriptionSexInput()}
-          {this._renderAddressStreet1Input()}
+
+          {this._renderCountryIdentificationInput()}
+
+          {this._renderCustomerIDNumberInput()}
+
+          {this._renderAddressInputs()}
+
           {this._renderLastNameInput()}
           {this._renderEyeColorInput()}
           {this._renderDateOfBirthInput()}

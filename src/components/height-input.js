@@ -11,9 +11,9 @@ export default class HeightInput extends Component {
   _renderUnitOptions() {
     return (
       <select onChange={this._handleChange}>
-        {this.props.unitOptions.map((option) => {
+        {this.props.unitOptions.map((option, index) => {
           return (
-            <option>{option}</option>
+            <option key={index}>{option}</option>
           )
         })}
       </select>
