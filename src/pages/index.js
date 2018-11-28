@@ -32,9 +32,7 @@ export default class IndexPage extends Component {
   constructor (props) {
     super(props)
 
-    this.state = {
-      eyeColor: ''
-    }
+    this.state = {}
   }
 
   _handleHeightValueChange = (value) => {
