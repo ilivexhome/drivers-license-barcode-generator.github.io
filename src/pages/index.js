@@ -7,6 +7,7 @@ import EyeColorInput from '../components/eye-color-input'
 import HeightInput from '../components/height-input'
 import TextInput from '../components/text-input'
 import DateInput from '../components/date-input'
+import DocumentDiscriminatorInput from '../components/document-discriminator-input'
 
 const EYE_COLOR_OPTIONS = [
   {
@@ -154,7 +155,7 @@ export default class IndexPage extends Component {
 
   _renderDocumentDiscriminatorInput() {
     return (
-      <TextInput
+      <DocumentDiscriminatorInput
         label={'Document Discriminator'}
         onChange={this._handleDocumentDiscriminatorChange}
       />
@@ -202,27 +203,60 @@ export default class IndexPage extends Component {
 
   _renderAddressStreet1Input() {
     return (
-      <TextInput
-        label={'Address'}
-        onChange={this._handleAddressStreet1Change}
-      />
+      <div className={'col'}>
+        <TextInput
+          label={'Address'}
+          onChange={this._handleAddressStreet1Change}
+        />
+      </div>
     );
   }
 
   _renderAddressCityInput() {
-    return null; // TODO
+    return (
+      <TextInput
+        label={'City'}
+        onChange={this._handleAddressCityChange}
+        value={this.state.addressCity}
+      />
+    );
   }
 
   _renderAddressJurisdictionCodeInput() {
-    return null; // TODO
+    return (
+      <TextInput
+        label={'Country'}
+        onChange={this._handleAddressJurisdictionCodeChange}
+        value={this.state.addressJurisdictionCode}
+      />
+    )
+  }
+
+  _renderDemographicInputs() {
+    return (
+      <>
+      <h2>Demographics</h2>
+      <div className={'row'}>
+      <div className={'col'}>
+        {this._renderHeightInput()}
+      </div>
+      <div className={'col'}>
+        {this._renderEyeColorInput()}
+      </div>
+
+      </div>
+      </>
+    )
   }
 
   _renderAddressPostalCodeInput() {
     return (
+      <div className={'col'}>
       <TextInput
         label={'Postal Code'}
       />
-    ); // TODO
+      </div>
+    );
   }
 
   _renderCountryIdentificationInput() {
@@ -231,12 +265,20 @@ export default class IndexPage extends Component {
 
   _renderAddressInputs() {
     return (
-      <>
+      <div className="row">
         {this._renderAddressStreet1Input()}
         {this._renderAddressCityInput()}
-        {this._renderAddressJurisdictionCodeInput()}
-        {this._renderAddressPostalCodeInput()}
-      </>
+
+
+        <div className="col">
+          {this._renderAddressPostalCodeInput()}
+        </div>
+
+        <div className="col">
+          {this._renderAddressJurisdictionCodeInput()}
+        </div>
+
+      </div>
     );
   }
 
@@ -245,7 +287,45 @@ export default class IndexPage extends Component {
   }
 
   _renderDocumentIssueDateInput() {
-    return null; // TODO
+    return (
+      null
+    );
+  }
+
+  _renderNameInputs() {
+    return (
+      <div className="row">
+      <div className="col">
+      {this._renderFirstNameInput()}
+      </div>
+      <div className="col">
+      {this._renderMiddleNameInput()}
+      </div>
+      <div className="col">
+      {this._renderLastNameInput()}
+      </div>
+      </div>
+    )
+  }
+
+  _renderSubmitInput() {
+    return (
+      <input
+        disabled={!this._isFormValid()}
+        type="submit"
+        value="Generate Barcode"
+        className="btn btn-primary"
+      />
+    )
+  }
+
+  _isFormValid() {
+    if (!this.state.firstName) {
+      return false;
+    }
+
+
+    return true;
   }
 
   render() {
@@ -253,11 +333,11 @@ export default class IndexPage extends Component {
       <Layout>
         {this._renderDebug()}
         <form>
+        {this._renderNameInputs()}
+
           {this._renderJurisdictionSpecificVehicleClassInput()}
           {this._renderJurisdictionSpecificRestrictionCodesInput()}
           {this._renderDocumentExpirationDateInput()}
-          {this._renderFirstNameInput()}
-          {this._renderMiddleNameInput()}
           {this._renderPhysicalDescriptionSexInput()}
 
           {this._renderCountryIdentificationInput()}
@@ -266,12 +346,12 @@ export default class IndexPage extends Component {
 
           {this._renderAddressInputs()}
 
-          {this._renderLastNameInput()}
-          {this._renderEyeColorInput()}
+          {this._renderDemographicInputs()}
+
           {this._renderDateOfBirthInput()}
           {this._renderDocumentDiscriminatorInput()}
-          {this._renderHeightInput()}
-          <input type="submit" value="Generate Barcode" className="btn btn-primary" />
+
+          {this._renderSubmitInput()}
         </form>
       </Layout>
     )
