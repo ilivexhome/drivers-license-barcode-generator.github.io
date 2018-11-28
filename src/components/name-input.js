@@ -1,26 +1,6 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import TextInput from './text-input'
 
-export default class NameInput extends Component {
-  static propTypes = {
-    onChange: PropTypes.func,
-    label: PropTypes.string.isRequired,
-  }
+const NameInput = (props) => <TextInput {...props} />
 
-  _handleChange = (event) => {
-    const { onChange } = this.props;
-
-    if (onChange) {
-      onChange(event.target.value);
-    }
-  }
-
-  render () {
-    return (
-      <div className="form-group">
-        <label>{this.props.label}</label>
-        <input onChange={this._handleChange} type="text" className="form-control" />
-      </div>
-    );
-  }
-}
+export default NameInput

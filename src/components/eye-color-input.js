@@ -8,14 +8,14 @@ export default class EyeColorInput extends Component {
       hex: PropTypes.string.isRequired,
     })).isRequired,
     selected: PropTypes.string,
-    onSelect: PropTypes.func,
+    onChange: PropTypes.func,
   }
 
   _handleClick = (label) => {
-    const { onSelect } = this.props;
+    const { onChange } = this.props;
 
-    if (onSelect) {
-      onSelect(label);
+    if (onChange) {
+      onChange(label);
     }
   }
 
