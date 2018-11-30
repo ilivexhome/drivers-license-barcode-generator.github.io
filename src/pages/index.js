@@ -41,6 +41,7 @@ export default class IndexPage extends Component {
       currentPosition: null,
       postalCode: "",
       city: "",
+      address: "",
       jurisdicationSpecificVehicleClass: "",
     }
   }
@@ -63,7 +64,8 @@ export default class IndexPage extends Component {
     this.setState({
       postalCode: this._extractPostalCode(address),
       city: this._extractCity(address),
-      country: this._extractCountry(address)
+      country: this._extractCountry(address),
+      address: this._extractAddress(address)
     })
   }
 
@@ -86,6 +88,13 @@ export default class IndexPage extends Component {
 
   _extractCountry(address) {
     return this._extract(address, 'country', false)
+  }
+
+  _extractAddress(address) {
+    const streetNumber = this._extract(address, 'street_number')
+    const route = this._extract(address, 'route');
+
+    return `${streetNumber} ${route}`;
   }
 
   _handleHeightValueChange = (value) => {
@@ -276,6 +285,7 @@ export default class IndexPage extends Component {
       <div className={'col'}>
         <TextInput
           label={'Address'}
+          value={this.state.address}
           onChange={this._handleAddressStreet1Change}
         />
       </div>
