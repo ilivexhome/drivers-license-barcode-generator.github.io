@@ -8,6 +8,9 @@ import HeightInput from '../components/height-input'
 import TextInput from '../components/text-input'
 import DateInput from '../components/date-input'
 import DocumentDiscriminatorInput from '../components/document-discriminator-input'
+import AAMVA from '../aamva'
+import Barcode from '../components/barcode'
+import { find, includes } from 'lodash'
 
 const EYE_COLOR_OPTIONS = [
   {
@@ -33,7 +36,56 @@ export default class IndexPage extends Component {
   constructor (props) {
     super(props)
 
-    this.state = {}
+    this.state = {
+      isBarcodeVisible: true,
+      currentPosition: null,
+      postalCode: "",
+      city: "",
+      jurisdicationSpecificVehicleClass: "",
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.currentPosition && !prevState.currentPosition) {
+      this._reverseGeocode()
+
+    }
+  }
+
+  async _reverseGeocode() {
+    const { coords } = this.state.currentPosition
+    const key = 'AIzaSyAxYtsY6l7gJn2vlnjpXTn9qnry_TO5ygc';
+    const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${coords.latitude},${coords.longitude}&key=${key}`
+    const result = await fetch(url)
+    const json = await result.json();
+    const address = json.results[0];
+
+    this.setState({
+      postalCode: this._extractPostalCode(address),
+      city: this._extractCity(address),
+      country: this._extractCountry(address)
+    })
+  }
+
+  _extractPostalCode(address) {
+    return this._extract(address, 'postal_code')
+  }
+
+  _extractCity(address) {
+    return this._extract(address, 'locality')
+  }
+
+  _extract(address, type, longName = true) {
+    const components = address.address_components;
+    console.log(components)
+
+    const matchedComponent = find(components, (c) => includes(c.types, type))
+
+    return matchedComponent[longName ? 'long_name' : 'short_name'];
+  }
+
+  _extractCountry(address) {
+    return this._extract(address, 'country', false)
   }
 
   _handleHeightValueChange = (value) => {
@@ -97,6 +149,23 @@ export default class IndexPage extends Component {
       jurisdictionSpecificVehicleClass,
     });
   }
+
+  _handleSubmit = (event) => {
+    event.preventDefault();
+
+    const aamva = new AAMVA({
+      dataElements: this._dataElements(),
+    });
+
+    this.setState({
+      isBarcodeVisible: true,
+    });
+  }
+
+  _dataElements() {
+    return []
+  }
+
 
   _renderHeightInput() {
     return (
@@ -165,6 +234,7 @@ export default class IndexPage extends Component {
   _renderJurisdictionSpecificVehicleClassInput() {
     return (
       <TextInput
+        value={this.state.jurisdicationSpecificVehicleClass}
         label={'Jurisdiction Specific Vehicle Class'}
         onChange={this._handleJurisdictionVehicleClassChange}
       />
@@ -217,7 +287,7 @@ export default class IndexPage extends Component {
       <TextInput
         label={'City'}
         onChange={this._handleAddressCityChange}
-        value={this.state.addressCity}
+        value={this.state.city}
       />
     );
   }
@@ -227,7 +297,7 @@ export default class IndexPage extends Component {
       <TextInput
         label={'Country'}
         onChange={this._handleAddressJurisdictionCodeChange}
-        value={this.state.addressJurisdictionCode}
+        value={this.state.country}
       />
     )
   }
@@ -254,6 +324,7 @@ export default class IndexPage extends Component {
       <div className={'col'}>
       <TextInput
         label={'Postal Code'}
+        value={this.state.postalCode}
       />
       </div>
     );
@@ -263,12 +334,26 @@ export default class IndexPage extends Component {
     return null; // TODO
   }
 
+  _handleReverseGeolocateClick = (event) => {
+    event.preventDefault();
+
+    // TODO: Detect if navigator.geolocation is available here...
+
+    navigator.geolocation.getCurrentPosition((currentPosition) => {
+      console.log(currentPosition);
+      this.setState({
+        currentPosition,
+      })
+    });
+  }
+
   _renderAddressInputs() {
     return (
       <div className="row">
+        <a onClick={this._handleReverseGeolocateClick}>Use Current Location</a>
+
         {this._renderAddressStreet1Input()}
         {this._renderAddressCityInput()}
-
 
         <div className="col">
           {this._renderAddressPostalCodeInput()}
@@ -324,16 +409,38 @@ export default class IndexPage extends Component {
       return false;
     }
 
-
     return true;
+  }
+
+  get _data() {
+    if (!this.state.firstName) {
+      return "";
+    }
+
+    return this.state.firstName;
+  }
+
+  _renderBarcode() {
+    if (!this.state.isBarcodeVisible) {
+      return null;
+    }
+
+    return (
+      <div>
+        <Barcode
+          data={this._data}
+        />
+      </div>
+    )
   }
 
   render() {
     return (
       <Layout>
         {this._renderDebug()}
-        <form>
+        <form onSubmit={this._handleSubmit}>
         {this._renderNameInputs()}
+
 
           {this._renderJurisdictionSpecificVehicleClassInput()}
           {this._renderJurisdictionSpecificRestrictionCodesInput()}
@@ -352,6 +459,7 @@ export default class IndexPage extends Component {
           {this._renderDocumentDiscriminatorInput()}
 
           {this._renderSubmitInput()}
+          {this._renderBarcode()}
         </form>
       </Layout>
     )

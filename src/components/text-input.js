@@ -5,6 +5,7 @@ export default class TextInput extends Component {
   static propTypes = {
     onChange: PropTypes.func,
     label: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
   }
 
   _handleChange = (event) => {
@@ -19,7 +20,12 @@ export default class TextInput extends Component {
     return (
       <div className="form-group">
         <label>{this.props.label}</label>
-        <input onChange={this._handleChange} type="text" className="form-control" />
+        <input
+          type="text"
+          onChange={this._handleChange}
+          value={this.props.value}
+          className="form-control"
+         />
       </div>
     );
   }

@@ -1,7 +1,12 @@
 import React, { Component } from 'react'
 import PDF417 from '../pdf417'
+import PropTypes from 'prop-types'
 
 export default class Barcode extends Component {
+  static propTypes = {
+    data: PropTypes.string.isRequired,
+  }
+
   constructor (props) {
     super(props)
 
@@ -9,21 +14,15 @@ export default class Barcode extends Component {
   }
 
   componentDidMount () {
-    var hub3Code = 'HRVHUB30\nHRK\n' +
-             '000000000012355\n' +
-             'ZELJKO SENEKOVIC\n' +
-             'IVANECKA ULICA 125\n' +
-             '42000 VARAZDIN\n' +
-             '2DBK d.d.\n' +
-             'ALKARSKI PROLAZ 13B\n' +
-             '21230 SINJ\n' +
-             'HR1210010051863000160\n' +
-             'HR01\n' +
-             '7269-68949637676-00019\n' +
-             'COST\n' +
-             'Troskovi za 1. mjesec\n'
+    this._drawBarcode();
+  }
 
-    PDF417.init(hub3Code)
+  componentDidUpdate() {
+    this._drawBarcode();
+  }
+
+  _drawBarcode() {
+    PDF417.init(this.props.data)
     var barcode = PDF417.getBarcodeArray()
     // block sizes (width and height) in pixels
     var bw = 2
@@ -38,8 +37,6 @@ export default class Barcode extends Component {
     var y = 0
     // for each row
 
-    console.log(barcode)
-
     for (var r = 0; r < barcode['num_rows']; ++r) {
       var x = 0
       // for each column
@@ -50,12 +47,15 @@ export default class Barcode extends Component {
         x += bw
       }
       y += bh
-    }
+    }1
   }
 
   render () {
     return (
-      <canvas style={{ background: 'white' }} ref={this._ref} ></canvas>
+      <canvas
+        style={{ background: 'white' }}
+        ref={this._ref}
+      />
     )
   }
 }
