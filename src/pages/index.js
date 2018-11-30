@@ -236,6 +236,8 @@ export default class IndexPage extends Component {
       <DocumentDiscriminatorInput
         label={'Document Discriminator'}
         onChange={this._handleDocumentDiscriminatorChange}
+        onGenerate={(documentDiscriminator) => this.setState({ documentDiscriminator })}
+        value={this.state.documentDiscriminator}
       />
     )
   }
