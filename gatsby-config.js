@@ -1,3 +1,7 @@
+require('dotenv').config({
+  path: `.env`
+})
+
 module.exports = {
   pathPrefix: '/drivers-license-barcode-generator',
   siteMetadata: {

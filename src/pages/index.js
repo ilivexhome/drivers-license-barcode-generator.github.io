@@ -55,7 +55,7 @@ export default class IndexPage extends Component {
 
   async _reverseGeocode() {
     const { coords } = this.state.currentPosition
-    const key = 'AIzaSyAxYtsY6l7gJn2vlnjpXTn9qnry_TO5ygc';
+    const key = process.env.GOOGLE_API_KEY;
     const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${coords.latitude},${coords.longitude}&key=${key}`
     const result = await fetch(url)
     const json = await result.json();
