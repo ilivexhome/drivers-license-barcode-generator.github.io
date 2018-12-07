@@ -1,9 +1,13 @@
-version: 2.1
+version: 2
 
-orbs:
-  hello: circleci/hello-build@0.0.7
-
-workflows:
-  "Hello Workflow":
-    jobs:
-      - hello/hello-build
+jobs:
+  build:
+    docker:
+      - image: circleci/node:latest
+    steps:
+      - run: echo "Hello World"
+  deploy:
+    docker:
+      - image: circleci/node:latest
+    steps:
+      - ./scripts/deploy-ghpages.sh build
