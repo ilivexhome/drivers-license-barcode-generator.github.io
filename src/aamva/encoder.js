@@ -1,26 +1,43 @@
 import { truncate } from 'lodash'
 
 class DataElement {
-  constructor({ type, value }) {
-    this._type = type;
+  constructor ({ elementID, value }) {
+    this._elementID = elementID
     this._value = value
   }
 
-  toString() {
+  toString () {
+    switch (this._elementID) {
+      case 'DAC':
+        this._dac()
+        break
+        case 'DCA':
+          this._dca()
+          break
+      default:
+        throw 'Unknown DataElement: ' + this._elementID
+    }
+  }
+
+  _dac() {
+    return 'KYLE DECOT'
+  }
+
+  _dca() {
     return truncate(this._value, {
       length: 40,
-      omission: '', 
-    });
+      omission: ''
+    })
   }
 }
 
 class Encoder {
-  constructor(data) {
-    this.data = data;
+  constructor (data) {
+    this.data = data
   }
 
-  toString() {
-    return "KYLEDECOT";
+  toString () {
+    return 'KYLEDECOT'
   }
 }
 
