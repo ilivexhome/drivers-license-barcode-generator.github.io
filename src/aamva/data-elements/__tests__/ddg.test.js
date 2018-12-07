@@ -1,28 +1,20 @@
-import DDG from '../ddg'
+import DBC from '../dbc'
 
-describe('DDG', () => {
+describe('DBC', () => {
   describe('toString', () => {
-    describe('when true', () => {
+    describe('when "U.S."', () => {
       it('works', () => {
-        const dataElement = new DDG(true)
+        const dataElement = new DBC('U.S.')
 
-        expect(dataElement.toString()).toEqual('T')
+        expect(dataElement.toString()).toEqual('USA')
       })
     })
 
-    describe('when false', () => {
+    describe('when "Canada"', () => {
       it('works', () => {
-        const dataElement = new DDG(false)
+        const dataElement = new DBC('Canada')
 
-        expect(dataElement.toString()).toEqual('N')
-      })
-    })
-
-    describe('when neither true or false', () => {
-      it('works', () => {
-        const dataElement = new DDG(null)
-
-        expect(dataElement.toString()).toEqual('U')
+        expect(dataElement.toString()).toEqual('CAN')
       })
     })
   })
