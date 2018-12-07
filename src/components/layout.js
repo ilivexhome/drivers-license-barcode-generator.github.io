@@ -1,23 +1,23 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import Helmet from 'react-helmet'
-import Barcode from './barcode'
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import Helmet from "react-helmet";
+import Barcode from "./barcode";
 
-import { StaticQuery, graphql } from 'gatsby'
+import { StaticQuery, graphql } from "gatsby";
 
-import './layout.scss'
+import "./layout.scss";
 
 export default class Layout extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired
-  }
+  };
 
-  constructor (props) {
+  constructor(props) {
     super(props);
 
     this.state = {
-      data: '',
-    }
+      data: ""
+    };
   }
 
   _renderBarcode() {
@@ -25,19 +25,15 @@ export default class Layout extends Component {
       return null;
     }
 
-    return (
-      <Barcode data={this.state.data}/>
-    );
+    return <Barcode data={this.state.data} />;
   }
 
-  render () {
+  render() {
     return (
       <>
         <div className="container">
-
-        {this._renderBarcode()}
-        {this.props.children}
-
+          {this._renderBarcode()}
+          {this.props.children}
         </div>
       </>
     );

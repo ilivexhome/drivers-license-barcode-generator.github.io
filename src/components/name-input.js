@@ -1,6 +1,6 @@
-import React from 'react'
-import TextInput from './text-input'
+import React from "react";
+import TextInput from "./text-input";
 
-const NameInput = (props) => <TextInput {...props} />
+const NameInput = props => <TextInput {...props} />;
 
-export default NameInput
+export default NameInput;
