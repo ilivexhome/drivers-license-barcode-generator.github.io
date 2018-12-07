@@ -5,7 +5,8 @@ import PropTypes from "prop-types";
 
 export default class DocumentDiscriminatorInput extends Component {
   static propTypes = {
-    onGenerate: PropTypes.func
+    onGenerate: PropTypes.func,
+    value: PropTypes.string.isRequired,
   };
 
   _handleGenerateClick = () => {

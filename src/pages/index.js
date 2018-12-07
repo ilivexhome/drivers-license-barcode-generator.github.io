@@ -42,7 +42,8 @@ export default class IndexPage extends Component {
       postalCode: "",
       city: "",
       address: "",
-      jurisdicationSpecificVehicleClass: ""
+      jurisdicationSpecificVehicleClass: "",
+      documentDiscriminator: "",
     };
   }
 
