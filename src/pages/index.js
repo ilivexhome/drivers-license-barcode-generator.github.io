@@ -208,6 +208,7 @@ export default class IndexPage extends Component {
   _renderFirstNameInput() {
     return (
       <FirstNameInput
+        testid="first-name-input"
         onChange={this._handleFirstNameChange}
         value={this.state.firstName}
       />
@@ -217,6 +218,7 @@ export default class IndexPage extends Component {
   _renderMiddleNameInput() {
     return (
       <MiddleNameInput
+        testid={'middle-name-input'}
         onChange={this._handleMiddleNameChange}
         value={this.state.middleName}
       />
@@ -226,6 +228,7 @@ export default class IndexPage extends Component {
   _renderLastNameInput() {
     return (
       <LastNameInput
+        testid={'last-name-input'}
         onChange={this._handleLastNameChange}
         value={this.state.lastName}
       />

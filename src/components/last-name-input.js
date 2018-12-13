@@ -2,8 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import NameInput from "./name-input";
 
-const LastNameInput = ({ onChange }) => (
-  <NameInput label={"Last Name"} onChange={onChange} />
+const LastNameInput = ({ onChange, testid }) => (
+  <NameInput label={"Last Name"} testid={testid} onChange={onChange} />
 );
 
 LastNameInput.propTypes = {
