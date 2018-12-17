@@ -1,16 +1,20 @@
-FROM node:latest
+FROM node:10.14.2
 
 MAINTAINER Kyle Decot <kyle.decot@icloud.com>
 
 WORKDIR /app
 
-RUN yarn install
 
 COPY package.json yarn.lock ./
+RUN yarn install --quiet
+
 COPY . .
 
 EXPOSE 8000
 
 VOLUME /app
+
+ENV PATH="/app/node_modules/.bin:${PATH}"
+
 
 CMD ["yarn", "start"]

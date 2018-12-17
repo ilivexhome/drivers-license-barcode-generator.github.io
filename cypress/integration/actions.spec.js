@@ -1,6 +1,6 @@
 /// <reference types="Cypress" />
 
-context('Actions', () => {
+describe('Actions', () => {
   beforeEach(() => {
     cy.visit('http://localhost:8000')
   })
