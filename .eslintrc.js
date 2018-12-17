@@ -8,12 +8,17 @@ module.exports = {
           }
       },
       "plugins": [
-          "react"
+          "react",
+          "cypress"
       ],
   "extends": [
     "standard",
-    "plugin:react/recommended"
+    "plugin:react/recommended",
+    "plugin:cypress/recommended"
   ],
+  "env": {
+    "cypress/globals": true
+  },
   "settings": {
         "react": {
             "pragma": "React",
